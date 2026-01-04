@@ -5,7 +5,7 @@ from httpx import Response
 from clients.api_client import APIClient
 
 
-class CourseIdRequestQuery(TypedDict):
+class CourseIdQuery(TypedDict):
 	"""
 	Параметр запроса для получения списка заданий курса.
 	"""
@@ -27,6 +27,17 @@ class CreateExerciseRequestDict(BaseExerciseInfoDict):
 	Данные для создания нового задания.
 	"""
 	courseId: str
+
+class UpdateExerciseRequestDict(TypedDict):
+    """
+    Описание структуры запроса на обновление задания.
+    """
+    title: str | None
+    maxScore: int | None
+    minScore: int | None
+    orderIndex: int | None
+    description: str | None
+    estimatedTime: str | None
 
 class ExercisesClient(APIClient):
 	"""
@@ -60,7 +71,7 @@ class ExercisesClient(APIClient):
 		"""
 		return self.post("/api/v1/exercises", json=request)
 
-	def update_exercise_api(self, exercise_id: str, request: BaseExerciseInfoDict) -> Response:
+	def update_exercise_api(self, exercise_id: str, request: UpdateExerciseRequestDict) -> Response:
 		"""
 		Метод для обновления задания.
 
