@@ -1,12 +1,12 @@
 import httpx
 
-from tools.fakers import get_random_email
+from tools.fakers import fake
 
 
 client = httpx.Client(base_url="http://localhost:8000")
 
 payload = {
-    "email": get_random_email(),
+    "email": fake.email(),
     "password": "password",
     "lastName": "Ivanov",
     "firstName": "Ivan",

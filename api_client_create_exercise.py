@@ -3,12 +3,12 @@ from clients.exercises.exercises_client import CreateExerciseRequestSchema, get_
 from clients.files.files_client import CreateFileRequestSchema, get_files_client
 from clients.private_http_builder import AuthenticationUserSchema
 from clients.users.public_users_client import CreateUserRequestSchema, get_public_users_client
-from tools.fakers import get_random_email
+from tools.fakers import fake
 
 public_users_client = get_public_users_client()
 
 create_user_request = CreateUserRequestSchema(
-    email=get_random_email(),
+    email=fake.email(),
     password="string",
     lastName="string",
     firstName="string",

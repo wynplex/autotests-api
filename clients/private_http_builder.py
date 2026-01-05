@@ -1,15 +1,16 @@
 from httpx import Client
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 
 from clients.authentication.authentication_client import get_authentication_client
 # Импортируем модель LoginRequestSchema
 from clients.authentication.authentication_schema import LoginRequestSchema
+from tools.fakers import fake
 
 
 # Добавили суффикс Schema вместо Dict
 class AuthenticationUserSchema(BaseModel):  # Наследуем от BaseModel вместо TypedDict
-    email: EmailStr
-    password: str
+    email: EmailStr = Field(default_factory=fake.email)
+    password: str = Field(default_factory=fake.password)
 
 
 def get_private_http_client(user: AuthenticationUserSchema) -> Client:
