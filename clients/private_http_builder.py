@@ -1,5 +1,5 @@
 from httpx import Client
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 from clients.authentication.authentication_client import get_authentication_client
 # Импортируем модель LoginRequestSchema
@@ -8,7 +8,7 @@ from clients.authentication.authentication_schema import LoginRequestSchema
 
 # Добавили суффикс Schema вместо Dict
 class AuthenticationUserSchema(BaseModel):  # Наследуем от BaseModel вместо TypedDict
-    email: str
+    email: EmailStr
     password: str
 
 

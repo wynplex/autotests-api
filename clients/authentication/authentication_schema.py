@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, EmailStr, Field
 
 
 # Добавили суффикс Schema вместо Dict
@@ -16,7 +16,7 @@ class LoginRequestSchema(BaseModel):  # Наследуем от BaseModel вме
     """
     Описание структуры запроса на аутентификацию.
     """
-    email: str
+    email: EmailStr
     password: str
 
 
