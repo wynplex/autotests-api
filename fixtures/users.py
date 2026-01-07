@@ -5,11 +5,9 @@ from clients.authentication.authentication_client import AuthenticationClient, g
 from clients.private_http_builder import AuthenticationUserSchema
 from clients.users.private_users_client import PrivateUsersClient, get_private_users_client
 from clients.users.public_users_client import PublicUsersClient, get_public_users_client
-# Импортируем запрос и ответ создания пользователя, модель данных пользователя
 from clients.users.users_schema import CreateUserRequestSchema, CreateUserResponseSchema
 
 
-# Модель для агрегации возвращаемых данных фикстурой function_user
 class UserFixture(BaseModel):
 	request: CreateUserRequestSchema
 	response: CreateUserResponseSchema
@@ -25,19 +23,14 @@ class UserFixture(BaseModel):
 
 
 @pytest.fixture
-def authentication_client() -> AuthenticationClient:
-	return get_authentication_client()
-
-
-@pytest.fixture
 def public_users_client() -> PublicUsersClient:
 	return get_public_users_client()
 
 
 @pytest.fixture
 def private_users_client(function_user) -> PrivateUsersClient:
-    """Фикстура приватного клиента пользователей с аутентификацией"""
-    return get_private_users_client(user=function_user.authentication_user)
+	"""Фикстура приватного клиента пользователей с аутентификацией"""
+	return get_private_users_client(user=function_user.authentication_user)
 
 
 @pytest.fixture
