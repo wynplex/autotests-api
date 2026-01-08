@@ -1,6 +1,7 @@
 from clients.errors_schema import InternalErrorResponseSchema
 from clients.exercises.exercises_schema import CreateExerciseRequestSchema, CreateExerciseResponseSchema, \
-    ExerciseSchema, GetExerciseResponseSchema, UpdateExerciseRequestSchema, UpdateExerciseResponseSchema
+    ExerciseSchema, GetExerciseResponseSchema, GetExercisesResponseSchema, UpdateExerciseRequestSchema, \
+    UpdateExerciseResponseSchema
 from tools.assertions.base import assert_equal
 from tools.assertions.errors import assert_internal_error_response
 
@@ -94,3 +95,28 @@ def assert_exercise_not_found_response(response: InternalErrorResponseSchema):
     """
     expected = InternalErrorResponseSchema(details="Exercise not found")
     assert_internal_error_response(actual=response, expected=expected)
+
+def assert_get_exercises_response(
+        get_response: GetExercisesResponseSchema,
+        created_exercises: list[CreateExerciseResponseSchema]
+):
+    """
+    Проверяет, что список заданий содержит все созданные задания.
+
+    :param get_response: Ответ API на GET-запрос списка заданий.
+    :param created_exercises: Список созданных заданий для сравнения.
+    :raises AssertionError: Если данные не совпадают.
+    """
+    assert len(get_response.exercises) == len(created_exercises), (
+        f"Expected {len(created_exercises)} exercises, "
+        f"but got {len(get_response.exercises)}"
+    )
+    created_by_id = {ex.exercise.id: ex.exercise for ex in created_exercises}
+
+    for exercise in get_response.exercises:
+        assert exercise.id in created_by_id, (
+            f"Exercise with id={exercise.id} not found in created exercises"
+        )
+
+        expected_exercise = created_by_id[exercise.id]
+        assert_exercise(actual=exercise, expected=expected_exercise)
