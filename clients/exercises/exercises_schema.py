@@ -67,3 +67,10 @@ class GetExercisesResponseSchema(BaseModel):
     Возвращает СПИСОК exercises
     """
 	exercises: list[ExerciseSchema]
+
+class CreateExerciseResponseSchema(BaseModel):
+	"""
+	Ответ для POST /api/v1/exercises
+	Возвращает ОДИН exercise
+	"""
+	exercise: ExerciseSchema
