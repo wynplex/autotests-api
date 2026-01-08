@@ -60,6 +60,9 @@ class GetExerciseResponseSchema(BaseModel):
     """
 	exercise: ExerciseSchema
 
+class UpdateExerciseResponseSchema(BaseModel):
+	"""Схема запроса на обновление задания"""
+	exercise: ExerciseSchema
 
 class GetExercisesResponseSchema(BaseModel):
 	"""
