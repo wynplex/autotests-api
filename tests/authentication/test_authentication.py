@@ -2,6 +2,7 @@ from http import HTTPStatus
 
 import allure  # Импортируем allure
 import pytest
+from allure_commons.types import Severity
 
 from clients.authentication.authentication_client import AuthenticationClient
 from clients.authentication.authentication_schema import LoginRequestSchema, LoginResponseSchema
@@ -22,6 +23,7 @@ from tools.assertions.schema import validate_json_schema
 class TestAuthentication:
 
     @allure.story(AllureStory.LOGIN)
+    @allure.severity(Severity.BLOCKER)
     @allure.title("Login with correct email and password")  # Добавили заголовок
     def test_login(
             self,
