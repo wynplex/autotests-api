@@ -7,6 +7,8 @@ from clients.authentication.authentication_client import AuthenticationClient
 from clients.authentication.authentication_schema import LoginRequestSchema, LoginResponseSchema
 from clients.users.public_users_client import PublicUsersClient
 from fixtures.users import UserFixture
+from tools.allure.epics import AllureEpic
+from tools.allure.stories import AllureStory
 from tools.allure.tags import AllureTag
 from tools.assertions.authentication import assert_login_response
 from tools.assertions.base import assert_status_code
@@ -15,8 +17,11 @@ from tools.assertions.schema import validate_json_schema
 
 @pytest.mark.regression
 @pytest.mark.authentication
+@allure.epic(AllureEpic.LMS)
 @allure.tag(AllureTag.REGRESSION, AllureTag.AUTHENTICATION)
 class TestAuthentication:
+
+    @allure.story(AllureStory.LOGIN)
     @allure.title("Login with correct email and password")  # Добавили заголовок
     def test_login(
             self,
