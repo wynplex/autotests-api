@@ -9,6 +9,7 @@ from clients.users.public_users_client import PublicUsersClient
 from clients.users.users_schema import CreateUserRequestSchema, CreateUserResponseSchema, GetUserResponseSchema
 from fixtures.users import UserFixture
 from tools.allure.epics import AllureEpic
+from tools.allure.features import AllureFeature
 from tools.allure.stories import AllureStory
 from tools.allure.tags import AllureTag
 from tools.assertions.base import assert_status_code
@@ -20,11 +21,15 @@ from tools.fakers import fake
 @pytest.mark.users
 @pytest.mark.regression
 @allure.epic(AllureEpic.LMS)
+@allure.feature(AllureFeature.USERS)
+@allure.parent_suite(AllureEpic.LMS)
+@allure.suite(AllureFeature.USERS)
 @allure.tag(AllureTag.USERS, AllureTag.REGRESSION)
 class TestUsers:
     @pytest.mark.parametrize("email", ["mail.ru", "gmail.com", "example.com"])
     @allure.story(AllureStory.CREATE_ENTITY)
     @allure.tag(AllureTag.CREATE_ENTITY)
+    @allure.sub_suite(AllureStory.CREATE_ENTITY)
     @allure.severity(Severity.BLOCKER)
     @allure.title("Create user")  # Добавляем человекочитаемый заголовок
     def test_create_user(self, email: str, public_users_client: PublicUsersClient):
@@ -39,6 +44,7 @@ class TestUsers:
 
     @allure.tag(AllureTag.GET_ENTITY)
     @allure.story(AllureStory.GET_ENTITY)
+    @allure.sub_suite(AllureStory.GET_ENTITY)
     @allure.severity(Severity.CRITICAL)
     @allure.tag("GET_ENTITY")
     def test_ger_user_me(
