@@ -44,7 +44,7 @@ class ExercisesClient(APIClient):
         """
 		return self.post("/api/v1/exercises", json=request.model_dump(by_alias=True))
 
-	@allure.step("Update exercise by id {exercise_id")
+	@allure.step("Update exercise by id {exercise_id}")
 	def update_exercise_api(self, exercise_id: str, request: UpdateExerciseRequestSchema) -> Response:
 		"""
         Метод обновления задания.
