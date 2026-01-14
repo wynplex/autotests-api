@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field, HttpUrl
-from pydantic.v1 import FilePath
+from pydantic import FilePath
 
 from tools.fakers import fake
 
